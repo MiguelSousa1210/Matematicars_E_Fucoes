@@ -1,0 +1,32 @@
+ESTRUTURA DO CODIGO (cada arquivo cuida de uma coisa)
+=====================================================
+jogo.h        Tudo que e compartilhado: constantes, tipos (Carta, Jogador...), variaveis globais e a lista das funcoes.
+              Todo arquivo .c comeca com  #include "jogo.h".
+
+main.c        Programa principal: carrega imagens/sons, laco do jogo, atualizar() (60 vezes por segundo) e desenhar().
+dados.c       Tabelas fixas: a tabela CARTAS (nome, custo, ataque, defesa, texto), copias no baralho, nomes, botoes.
+globais.c     Variaveis globais que mudam durante o jogo (estado da tela, jogadores, fontes, imagens, sons).
+
+regras.c      MECANICAS: baralho, comprar, jogar carta, dano, escudo, combate, turnos, novo jogo.
+ia.c          Inteligencia artificial do monstro (jogar cartas, atacar, bloquear).
+jogador.c     Acoes do jogador: clicar numa carta da mao, atacar, botao FIM DO TURNO.
+quiz.c        MINIGAME: gera as contas de cada materia, as aulas, as alternativas e o resultado.
+entrada.c     Entrada: cliques do mouse e teclado em cada tela.
+
+layout.c      Posicoes das cartas na tela e qual carta esta sob o mouse.
+util.c        Utilitarios: cores, carregar imagens/fontes/sons, mensagens do log, textos flutuantes.
+efeitos.c     Efeitos visuais: particulas, aneis, tela tremendo, clarao.
+menu.c        Telas de menu: menu principal, COMO JOGAR, escolha de dificuldade.
+tela_jogo.c   Desenho da batalha: cartas, paineis, mana, log de mensagens, fim de luta (vitoria/derrota).
+tela_quiz.c   Desenho do minigame (aula + pergunta).
+
+ONDE MEXER PARA...
+- trocar nome/texto/custo de uma carta ........ dados.c (tabela CARTAS)
+- mudar uma aula ou uma conta .................. quiz.c (funcoes quiz_*)
+- mudar dano, escudo, vida, regras ............. regras.c
+- mudar como o monstro joga .................... ia.c
+- mudar o visual de um botao/painel ............ tela_jogo.c ou menu.c
+- mudar posicao das cartas ..................... layout.c
+
+Visual Studio: o ArenaCartas.vcxproj ja lista todos os .c. Se criar um .c novo, adicione na lista (Gerenciador de Solucoes >
+Adicionar > Item existente). Linux/Mac: ./compilar.sh (compila todos os .c juntos).

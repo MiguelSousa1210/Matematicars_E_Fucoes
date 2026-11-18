@@ -1,0 +1,93 @@
+ARENA DE CARTAS - Duelo de Magos
+================================
+Jogo de cartas por turnos em C com Allegro 5, inspirado em Magic: The Gathering Arena.
+Cartas, imagens e sons sao ORIGINAIS (o Magic e as artes dele sao protegidos por direitos autorais).
+
+COMO RODAR NO VISUAL STUDIO
+1. Crie um projeto novo "Aplicativo de Console" em C (ou abra um que voce ja usa com Allegro).
+2. Instale o pacote NuGet "Allegro" (Projeto > Gerenciar Pacotes NuGet).
+3. Coloque o arquivo main.c no projeto (substitua o main.c que existir).
+4. Copie as pastas  imagens  sons  fontes  para a pasta do projeto (a MESMA pasta onde esta o main.c e o .vcxproj, no disco - nao basta adicionar na lista do Visual Studio).
+   Se preferir, pode deixar todos os arquivos soltos nessa pasta: o jogo acha de qualquer jeito.
+   O jogo tambem procura uma pasta acima, entao funciona na pasta da solucao tambem.
+5. Compile e rode (F5).
+   Se aparecer um quadrado rosa no lugar de uma imagem, a pasta imagens nao foi encontrada.
+
+COMO RODAR NO LINUX / MAC
+   ./compilar.sh      (precisa da biblioteca Allegro 5 instalada)
+
+COMO JOGAR
+- Objetivo: zerar a vida do oponente (comeca com 20) ou esgotar o baralho dele.
+- Jogue 1 terra por turno; cada terra da 1 mana por turno.
+- Criaturas ficam "enjoadas" (zZz) no turno em que entram e so atacam no turno seguinte
+  (exceto as com Investida).
+- Para atacar: clique nas criaturas e depois em ATACAR.
+- Quando o oponente atacar: clique numa criatura sua e depois no atacante (borda vermelha),
+  depois em CONFIRMAR BLOQUEIOS.
+- Feiticos de dano pedem um alvo: clique numa criatura inimiga ou no retrato do oponente.
+- Botao direito cancela o alvo. Espaco/Enter = botao principal. F11 = tela cheia. ESC = menu.
+
+COMO TROCAR AS IMAGENS DAS CARTAS
+- imagens/arte_00.png ... arte_19.png : ilustracao de cada carta (qualquer tamanho, 3:2 fica melhor)
+- imagens/moldura_*.png : moldura de cada cor    imagens/carta_verso.png : verso da carta
+- imagens/fundo_arena.png (1280x720) : fundo da partida    imagens/fundo_menu.png : fundo do menu
+- Para mudar nomes, custos, atributos e textos das cartas, edite a tabela CARTAS no inicio do main.c.
+
+
+==== VERSAO "DUELO DE CONTAS" (o que mudou) ====
+- Menu > JOGAR agora pede a DIFICULDADE (Facil / Medio / Dificil): muda a vida do monstro e o tamanho das contas.
+- MINIGAME: ao jogar qualquer carta (menos terra) aparece uma conta da materia da carta:
+    Fogo = Funcao Exponencial, Agua = Funcao Afim, Floresta = Porcentagem, Luz = Matematica Financeira.
+  Digite o resultado e aperte Enter. Errou = a carta falha (gasta a mana). No Facil a carta volta pra mao.
+- COMBO EXPONENCIAL: a cada turno em que o inimigo NAO ataca, seus feiticos de dano ficam x1,5 mais fortes (ate 4 turnos).
+- Ao vencer, botao PROXIMA LUTA: monstro novo com mais vida; voce ganha +4 de vida e +1 de dano permanente.
+
+==== RODADA 2 (o que mudou agora) ====
+1) CARTAS POR MATERIA, COM ATAQUE E DEFESA
+   - Cada carta tem um selo: ATAQUE (vermelho), DEFESA (azul) ou APOIO (verde).
+   - Agora sao 31 cartas (baralho de 48): 11 cartas novas com arte nova (arte_20.png a arte_30.png):
+       Fogo     defesa: Muro de Brasas, Escudo de Fogo       ataque: Meteoro
+       Agua     defesa: Tartaruga Ancia, Barreira de Gelo
+       Floresta defesa: Urso Guardiao, Casca Protetora       ataque: Javali Selvagem
+       Luz      defesa: Paladino da Luz, Veu de Luz          ataque: Raio Sagrado
+   - NOVO EFEITO "ESCUDO": absorve os proximos N pontos de dano antes da sua vida (maximo 12).
+     Aparece como anel azul no retrato e contador "Escudo N". O monstro tambem usa escudo.
+   - NOVO EFEITO "MURALHA" (Casca Protetora): suas criaturas ganham +0/+2.
+   - Cada carta tem descricao propria na tabela CARTAS (campos: papel, valor, texto).
+2) MAIS FUNCOES NO MINIGAME
+   Fogo     = Funcao Exponencial e Funcao Logaritmica (log2, log3, log5, log10)
+   Agua     = Funcao Afim e Funcao Quadratica (valor de f(x), x do vertice, maior raiz)
+   Floresta = Porcentagem (parte, aumento e desconto)
+   Luz      = Matematica Financeira (juros compostos e juros simples)
+3) MULTIPLA ESCOLHA: cada conta tem 4 alternativas (A, B, C, D). Clique ou aperte 1-4 / A-D.
+   Depois de responder, aparece a resolucao passo a passo. As erradas sao erros comuns
+   (sinal trocado, juros simples no lugar de compostos, etc.).
+4) SONS E EFEITOS: sons novos acerto.wav, erro.wav e escudo.wav (pasta sons).
+   Acerto = estrelas e aneis verdes/dourados + clarao verde.
+   Erro = faiscas vermelhas, tela tremendo e clarao vermelho.
+   Tambem ha particulas em dano, cura, escudo e quando uma criatura e destruida.
+
+
+==== RODADA 3 (o que mudou agora) ====
+1) MANA: a fileira de mana (icone, "Mana X/Y" e as bolinhas) saiu de cima do texto "Mao / Baralho" e foi para a direita (x = 250).
+2) AULA ANTES DA PERGUNTA: ao usar uma carta, primeiro aparece "AULA RAPIDA" com o conceito, um exemplo resolvido
+   e os passos. So depois de clicar em "ENTENDI! VER A PERGUNTA" (ou Enter/Espaco) aparece a pergunta com as 4 alternativas.
+   Os textos das aulas ficam nas chamadas licao(...) dentro de cada funcao quiz_*() no main.c.
+3) TEMA 100% MATEMATICA: todas as 31 cartas foram renomeadas e reescritas (ex.: Dragao Exponencial, Parabola Serpente,
+   Reta Guardia, Juros Compostos, Cofre Guardiao, Metade Guardia). Terras viram Terrenos (Monte Expoente, Lago dos
+   Graficos, Bosque dos Percentuais, Praca dos Juros). Tipos: Terreno / Numero / Formula.
+   As 31 artes (arte_00.png a arte_30.png) foram refeitas: graficos de funcoes, moedas, porcentagem, parabolas etc.
+   Raios = ataque, escudo = defesa, circulos = apoio.
+
+==== RODADA 3.1 ====
+- A mana do jogador desceu para baixo do painel azul (nao encosta mais em "Mao / Baralho" nem na borda).
+- As mensagens do painel de log que eram maiores que a caixa agora sao cortadas com "..." em vez de sairem da tela.
+
+==== RODADA 3.2 ====
+- Painel de mensagens: o texto agora quebra por palavras (nenhuma palavra fica cortada) e usa 2 ou 3 linhas quando precisa. Funcao desenhar_log() no main.c.
+- Tela de derrota: botao TENTAR NOVAMENTE (repete a mesma luta, com a mesma vida inicial) e botao VOLTAR AO MENU.
+  Na vitoria continua PROXIMA LUTA + VOLTAR AO MENU.
+
+
+==== RODADA 4: CODIGO DIVIDIDO EM ARQUIVOS ====
+O main.c antigo foi dividido por assunto. Veja ESTRUTURA_DO_CODIGO.txt. O jogo funciona igual, so mudou a organizacao.

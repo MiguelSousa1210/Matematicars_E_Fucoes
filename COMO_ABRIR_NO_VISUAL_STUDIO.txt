@@ -1,0 +1,11 @@
+COMO ABRIR E RODAR (Visual Studio 2022)
+1. Descompacte a pasta inteira e de dois cliques em ArenaCartas.sln
+2. Menu  Projeto > Gerenciar Pacotes NuGet > aba "Procurar" > instale o pacote  "Allegro"
+   (o NuGet configura sozinho as pastas include e lib).
+3. Escolha  Debug | x64  na barra de cima e aperte F5.
+
+Observacoes:
+- O jogo tem que ficar ao lado das pastas imagens / sons / fontes (ja esta assim).
+  Ao compilar, elas tambem sao copiadas para bin\x64\Debug.
+- Visual Studio 2019: Projeto > Propriedades > Geral > Conjunto de ferramentas = v142.
+- O main.c foi salvo em UTF-8 com BOM e o projeto usa /utf-8, para os acentos aparecerem certos.
