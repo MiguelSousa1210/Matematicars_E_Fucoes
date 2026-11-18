@@ -6,10 +6,6 @@ Cartas, imagens e sons são originais. Cada carta jogada exige resolver uma cont
 
 ## Como rodar
 
-**Linux / Mac** (precisa do Allegro 5 instalado):
-
-    ./compilar.sh
-
 **Windows (Visual Studio):** abra `ArenaCartas.sln`. Veja `COMO_ABRIR_NO_VISUAL_STUDIO.txt`.
 
 ## Mais informações
